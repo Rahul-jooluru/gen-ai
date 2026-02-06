@@ -1,22 +1,39 @@
 import React, { useEffect, useState } from "react";
 import UploadBox from "../components/UploadBox";
 import PhotoGrid from "../components/PhotoGrid";
-import { uploadPhoto, fetchPhotos } from "../services/api";
+import PhotoModal from "../components/PhotoModel";
+import ChatSearch from "../components/ChatSearch";
+import ContactsManager from "../components/ContactsManager";
+import ShareHistory from "../components/ShareHistory";
+import ReceivedShares from "../components/ReceivedShares";
+import { uploadPhoto, fetchPhotos, deletePhoto, getUserProfile } from "../services/api";
 
 const Dashboard = () => {
   const [photos, setPhotos] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [selectedPhoto, setSelectedPhoto] = useState(null);
+  const [userProfile, setUserProfile] = useState(null);
 
-  // Fetch photos on load
+  // Load all photos on mount
   useEffect(() => {
     loadPhotos();
+    loadUserProfile();
   }, []);
+
+  const loadUserProfile = async () => {
+    try {
+      const profile = await getUserProfile();
+      setUserProfile(profile);
+    } catch (err) {
+      console.error("Failed to load user profile", err);
+    }
+  };
 
   const loadPhotos = async () => {
     setLoading(true);
     try {
       const data = await fetchPhotos();
-      setPhotos(data);
+      setPhotos(Array.isArray(data) ? data : []);
     } catch (err) {
       console.error("Failed to load photos", err);
     } finally {
@@ -26,12 +43,22 @@ const Dashboard = () => {
 
   const handleUpload = async (file) => {
     await uploadPhoto(file);
-    loadPhotos(); // refresh grid after upload
+    loadPhotos();
   };
 
-  const handlePhotoClick = (photo) => {
-    console.log("Clicked photo:", photo);
-    // later → open modal
+  const handleDelete = async (photoId) => {
+    try {
+      await deletePhoto(photoId);
+      setSelectedPhoto(null);
+      loadPhotos();
+    } catch (err) {
+      console.error("Failed to delete photo", err);
+      alert("Failed to delete photo");
+    }
+  };
+
+  const handleSearchResults = (results) => {
+    setPhotos(results);
   };
 
   return (
@@ -40,24 +67,40 @@ const Dashboard = () => {
       <header className="bg-white shadow-sm px-6 py-4 flex justify-between items-center">
         <h1 className="text-xl font-semibold">DrishyaMitra</h1>
         <span className="text-sm text-gray-500">
-          AI Photo Dashboard
+          {userProfile ? `Hi ${userProfile.name}!` : "AI Photo Dashboard"}
         </span>
       </header>
 
-      {/* Main Content */}
-      <main className="max-w-7xl mx-auto p-6 space-y-6">
-        {/* Upload */}
-        <UploadBox onUpload={handleUpload} />
+      {/* Content */}
+      <main className="max-w-7xl mx-auto p-6 grid grid-cols-1 lg:grid-cols-4 gap-6">
+        {/* Left panel */}
+        <div className="lg:col-span-1 space-y-6">
+          <UploadBox onUpload={handleUpload} />
+          <ChatSearch onResults={handleSearchResults} />
+          <ContactsManager />
+          <ReceivedShares />
+          <ShareHistory />
+        </div>
 
-        {/* Gallery */}
-        <PhotoGrid
-          photos={photos}
-          isLoading={loading}
-          onPhotoClick={handlePhotoClick}
-        />
+        {/* Right panel */}
+        <div className="lg:col-span-3">
+          <PhotoGrid
+            photos={photos}
+            isLoading={loading}
+            onPhotoClick={setSelectedPhoto}
+            onDelete={handleDelete}
+          />
+        </div>
       </main>
+
+      {/* Modal */}
+      <PhotoModal
+        photo={selectedPhoto}
+        onClose={() => setSelectedPhoto(null)}
+      />
     </div>
   );
 };
 
 export default Dashboard;
+

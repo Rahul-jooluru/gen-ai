@@ -1,43 +1,14 @@
-import React from "react";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Dashboard from "./pages/Dashboard";
 
-import Login from "./Pages/Login";
-import Dashboard from "./Pages/Dashboard";
-
-
-
-const isAuthenticated = () => {
-  return localStorage.getItem("auth") === "true";
-};
-
-
-const ProtectedRoute = ({ children }) => {
-  return isAuthenticated() ? children : <Navigate to="/" />;
-};
-
-const App = () => {
+function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Public */}
-        <Route path="/" element={<Login />} />
-
-        {/* Protected */}
-        <Route
-          path="/dashboard"
-          element={
-            <ProtectedRoute>
-              <Dashboard />
-            </ProtectedRoute>
-          }
-        />
-
-        {/* Fallback */}
-        <Route path="*" element={<Navigate to="/" />} />
+        <Route path="/" element={<Dashboard />} />
       </Routes>
     </BrowserRouter>
-    
   );
-};
+}
 
 export default App;
