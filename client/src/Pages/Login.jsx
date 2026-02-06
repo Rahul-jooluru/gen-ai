@@ -34,7 +34,7 @@ const Login = () => {
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
       <div className="bg-white p-8 rounded-xl shadow-md w-full max-w-sm">
         <h1 className="text-2xl font-semibold text-center mb-6">
-          DrishyaMitra
+          Photo_Management_Ai
         </h1>
 
         <form onSubmit={handleSubmit} className="space-y-4">

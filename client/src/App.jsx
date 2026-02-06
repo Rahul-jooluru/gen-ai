@@ -5,6 +5,7 @@ import Login from "./Pages/Login";
 import Dashboard from "./Pages/Dashboard";
 
 
+
 const isAuthenticated = () => {
   return localStorage.getItem("auth") === "true";
 };
@@ -35,6 +36,7 @@ const App = () => {
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </BrowserRouter>
+    
   );
 };
 
