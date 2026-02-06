@@ -1,0 +1,57 @@
+[
+  {
+    "id": "c55ff661-e54f-4d07-b0d2-3d249c3535a7",
+    "url": "http://localhost:5000/storage/images/c55ff661-e54f-4d07-b0d2-3d249c3535a7_Screenshot_2026-02-06_100125.png",
+    "tags": [
+      "wide",
+      "transparent",
+      "png",
+      "uploaded",
+      "hd",
+      "panoramic",
+      "image",
+      "photo",
+      "landscape"
+    ],
+    "date": "2026-02-06T14:41:34.505294"
+  },
+  {
+    "id": "3b8af2b9-02ce-48c2-868a-bcb6d82b93f0",
+    "url": "http://localhost:5000/storage/images/3b8af2b9-02ce-48c2-868a-bcb6d82b93f0_Screenshot_2025-11-14_234139.png",
+    "tags": [
+      "photo",
+      "uploaded",
+      "panoramic",
+      "wide",
+      "image",
+      "png",
+      "transparent",
+      "landscape"
+    ],
+    "date": "2026-02-06T14:51:29.295395"
+  },
+  {
+    "id": "63c17f00-079b-49ae-be83-e4e89e6e0ba4",
+    "url": "http://localhost:5000/storage/images/63c17f00-079b-49ae-be83-e4e89e6e0ba4_Screenshot_2025-11-07_090818.png",
+    "tags": [
+      "wide-angle",
+      "landscape",
+      "image",
+      "photo",
+      "cool-toned"
+    ],
+    "date": "2026-02-06T14:57:10.217191"
+  },
+  {
+    "id": "ed58308f-e595-48a8-9460-005e24757375",
+    "url": "http://localhost:5000/storage/images/ed58308f-e595-48a8-9460-005e24757375_Screenshot_2025-11-14_234440.png",
+    "tags": [
+      "wide-angle",
+      "landscape",
+      "photo",
+      "image",
+      "bright"
+    ],
+    "date": "2026-02-06T14:57:26.083513"
+  }
+]
